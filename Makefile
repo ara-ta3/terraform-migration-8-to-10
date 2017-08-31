@@ -34,9 +34,6 @@ terraform8/remote/config:
 		-backend-config="key=$(terraform_remote_key)" \
 		-backend-config="region=$(terraform_remote_region)"
 
-$(TERRAFORM8):
-	wget terraform_0.8.8 
-
 OS_TYPE=$(shell echo $(shell uname) | tr A-Z a-z)
 OS_ARCH=amd64
 $(TERRAFORM8): $(dirs)
