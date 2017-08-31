@@ -6,15 +6,20 @@ terraform_remote_key=sample.tfstate
 terraform_remote_region=$(AWS_DEFAULT_REGION)
 dirs=bin tmp
 
-terraform/plan: .terraform
+terraform/plan:
 	$(TERRAFORM) plan
 
-terraform/apply: .terraform
+terraform/apply:
 	$(TERRAFORM) apply
 
-terraform/remote_config: .terraform
+terraform/remote/init:
+	$(TERRAFORM) init \
+		-backend=true \
+		-force-copy \
+		-get=true \
+		-input=false
 
-.terraform:
+terraform/remote/init/withopt:
 	$(TERRAFORM) init \
 		-backend-config="bucket=$(terraform_remote_bucket)" \
 		-backend-config="key=$(terraform_remote_key)" \
